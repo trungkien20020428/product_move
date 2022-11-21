@@ -21,7 +21,7 @@ export class AuthService {
       },
     });
     if (!user) throw new ForbiddenException('Credentials incorrect');
-    
+
     const pwMatches = await bcrypt.compare(password, user.hash);
     if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
     delete user.hash;
@@ -30,14 +30,11 @@ export class AuthService {
       code: 200,
       messeage: 'login success',
       success: true,
-      result: { accessToken:accessToken , user },
+      result: { accessToken: accessToken, user },
     };
   }
 
-  async signToken(
-    userId: number,
-    email: string,
-  ){
+  async signToken(userId: number, email: string) {
     const payload = {
       sub: userId,
       email,

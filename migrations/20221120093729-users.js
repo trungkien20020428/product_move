@@ -11,20 +11,20 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
       },
       email: {
-        type: Sequelize.DataTypes.STRING({ length: 255 }),
+        type: Sequelize.STRING({ length: 255 }),
         unique: true,
         allowNull: false,
       },
       hash: {
-        type: Sequelize.DataTypes.STRING({ length: 255 }),
+        type: Sequelize.STRING({ length: 255 }),
         allowNull: false,
       },
       displayName: {
-        type: Sequelize.DataTypes.STRING({ length: 255 }),
+        type: Sequelize.STRING({ length: 255 }),
         allowNull: false,
       },
       photoURL: {
-        type: Sequelize.DataTypes.STRING({ length: 255 }),
+        type: Sequelize.STRING({ length: 255 }),
         allowNull: true,
       },
       roleId: {

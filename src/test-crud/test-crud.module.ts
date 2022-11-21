@@ -4,6 +4,6 @@ import { TestCrudController } from './test-crud.controller';
 
 @Module({
   controllers: [TestCrudController],
-  providers: [TestCrudService]
+  providers: [TestCrudService],
 })
 export class TestCrudModule {}

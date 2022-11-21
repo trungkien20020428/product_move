@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { TestCrudService } from './test-crud.service';
 import { CreateTestCrudDto } from './dto/create-test-crud.dto';
 import { UpdateTestCrudDto } from './dto/update-test-crud.dto';
@@ -27,7 +36,10 @@ export class TestCrudController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestCrudDto: UpdateTestCrudDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTestCrudDto: UpdateTestCrudDto,
+  ) {
     return this.testCrudService.update(+id, updateTestCrudDto);
   }
 
