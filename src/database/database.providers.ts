@@ -1,9 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
-import Role from 'src/users/entities/role.enity';
+import Products from 'src/products/entities/product.entity';
 import User from 'src/users/entities/user.entity';
 
-//Users
-const UserModels = [User, Role];
+const Models = [User, Products];
 
 export const databaseProviders = [
   {
@@ -17,7 +16,7 @@ export const databaseProviders = [
         password: 'Hoangkien02pl@',
         database: 'product_move',
       });
-      sequelize.addModels(UserModels);
+      sequelize.addModels(Models);
       await sequelize.sync();
       return sequelize;
     },

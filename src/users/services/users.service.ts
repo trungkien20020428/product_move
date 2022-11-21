@@ -12,9 +12,7 @@ export class UsersService {
   ) {}
   async create(createUserDto: CreateUserDto) {
     const { email, password, displayName, phone, roleId } = createUserDto;
-    console.log({ createUserDto });
     const hash = await bcrypt.hash(password, salt);
-    console.log({ hash });
     const user = await this.UsersRepository.create({
       email,
       hash,

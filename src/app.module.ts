@@ -6,7 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { TestCrudModule } from './test-crud/test-crud.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { TestCrudModule } from './test-crud/test-crud.module';
       isGlobal: true,
     }),
     JwtModule,
-    TestCrudModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AuthService],

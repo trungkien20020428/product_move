@@ -11,35 +11,35 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
       },
       product_name:{
-        type:Sequelize.String({length:255}),
+        type:Sequelize.STRING({length:255}),
         allowNull:false
       },
       product_line_name:{
-        type:Sequelize.String({length:255}),
+        type:Sequelize.STRING({length:255}),
         allowNull:false,
       },
       status:{
-        type:Sequelize.DataTypes.BIGINT,
+        type:Sequelize.INTEGER,
         allowNull:false,
       },
       code:{
-        type:Sequelize.String({length:255}),
+        type:Sequelize.STRING({length:255}),
         allowNull:false,
       },
       userId :{
-        type:Sequelize.DataTypes.BIGINT,
+        type:Sequelize.INTEGER,
         allowNull:false,
       },
       authorId :{
-        type:Sequelize.DataTypes.BIGINT,
+        type:Sequelize.INTEGER,
         allowNull:false,
       },
-      createAt :{
+      createdAt :{
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      updateAt:{
+      updatedAt:{
         allowNull:false,
         type:Sequelize.DATE,
         defaultValue: Sequelize.literal(

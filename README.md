@@ -1,13 +1,13 @@
 ## migrate
 ``` bash
- sequelize-cli migration:create --name name_of_your_migration            
- sequelize-cli db:migrate            
+ npx sequelize-cli migration:create --name name_of_your_migration            
+ npx sequelize-cli db:migrate            
 ```
  ## seed 
  ``` bash           
- sequelize-cli seed:generate --name user            
- sequelize-cli db:seed --seed 20221007043120-users.js            
- sequelize-cli db:seed:all
+ npx sequelize-cli seed:generate --name user            
+ npx sequelize-cli db:seed --seed 20221007043120-users.js            
+ npx sequelize-cli db:seed:all
  ```
 ## Installation
 
