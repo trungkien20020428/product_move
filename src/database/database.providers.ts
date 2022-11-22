@@ -1,8 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 import Products from 'src/products/entities/product.entity';
+import Product_line from 'src/products/entities/product_lines.entity';
+import product_move from 'src/products/entities/product_move.entity';
 import User from 'src/users/entities/user.entity';
 
-const Models = [User, Products];
+const Models = [User, Products, Product_line, product_move];
 
 export const databaseProviders = [
   {

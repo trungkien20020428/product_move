@@ -27,8 +27,8 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-@Get()
- async findAll() {
+  @Get()
+  async findAll() {
     return await this.productsService.findAll();
   }
 

@@ -8,7 +8,7 @@ export class ProductsService {
   constructor(
     @Inject('PRODUCTS_REPOSITORY')
     private ProductsRepository: typeof Products,
-  ){}
+  ) {}
   create(createProductDto: CreateProductDto) {
     return 'This action adds a new product';
   }
