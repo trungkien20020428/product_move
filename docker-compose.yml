@@ -2,7 +2,7 @@ version: '3.8'
 services:
   dev-db:
     image: mysql:8.0
-    container_name: ${MYSQL_CONTAINER_NAME_PREFIX}8.0
+    container_name: mysql
     ports:
       - 3380:3306
     environment:
@@ -10,13 +10,11 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - TZ=${TIMEZONE}
     volumes:
       - ./my.cnf:/root/.my.cnf:ro
       - ./mysql8.0/conf.d:/etc/mysql/conf.d:ro
       - ./mysql8.0/logs:/var/log/mysql:rw
       - ./mysql8.0/initdb.d:/docker-entrypoint-initdb.d:ro
-      - ./common:${MOUNTED_SHARED_DIRECTORY}:ro
       - ./auto-generate:/auto-generate:rw
 networks:
   backend:
