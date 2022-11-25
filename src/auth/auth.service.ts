@@ -16,16 +16,33 @@ export class AuthService {
     const { email, password } = Login;
     // find the user by email
     const user = await this.UsersRepository.findOne({
+      raw: true,
       where: {
         email,
       },
     });
-    if (!user) throw new ForbiddenException('Credentials incorrect');
+    if (!user) {
+      return {
+        code: 403,
+        messeage: 'Can not login , please try input email and password again',
+        success: false,
+        result: {},
+      };
+    }
 
     const pwMatches = await bcrypt.compare(password, user.hash);
-    if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
-    delete user.hash;
+    if (!pwMatches) {
+      return {
+        code: 403,
+        messeage: 'Can not login , please try input email and password again',
+        success: false,
+        result: {},
+      };
+    }
     const accessToken = await this.signToken(user.id, user.email);
+    delete user.hash;
+    delete user.createdAt;
+    delete user.updatedAt;
     return {
       code: 200,
       messeage: 'login success',
