@@ -1,1 +1,1 @@
-web:nest start --debug --watch
+web: yarn start:debug
