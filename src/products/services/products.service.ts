@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
-import Products from '../entities/product.entity';
+import ProductsModel from '../entities/product.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @Inject('PRODUCTS_REPOSITORY')
-    private ProductsRepository: typeof Products,
+    private ProductsRepository: typeof ProductsModel,
   ) {}
   create(createProductDto: CreateProductDto) {
     return 'This action adds a new product';

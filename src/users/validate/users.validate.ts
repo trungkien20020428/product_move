@@ -33,4 +33,23 @@ export class UserValidate {
       messeage: 'You can not create new user',
     };
   }
+
+  async validateGetAllUsers(userId) {
+    const user = await this.UsersRepository.findOne({
+      raw: true,
+      where: {
+        id: userId,
+      },
+    });
+    if (user.roleId != Role.DIRECTOR) {
+      return {
+        success: false,
+        messeage: 'You can not have permision for this!',
+      };
+    }
+    return {
+      success: true,
+      messeage: '',
+    };
+  }
 }

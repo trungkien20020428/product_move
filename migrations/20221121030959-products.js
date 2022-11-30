@@ -10,27 +10,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.DataTypes.BIGINT,
       },
-      product_name:{
+      name:{
         type:Sequelize.STRING({length:255}),
         allowNull:false
       },
-      product_line_name:{
-        type:Sequelize.STRING({length:255}),
-        allowNull:false,
-      },
-      status:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-      },
-      code:{
-        type:Sequelize.STRING({length:255}),
-        allowNull:false,
-      },
-      userId :{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-      },
-      authorId :{
+      product_line_id:{
         type:Sequelize.INTEGER,
         allowNull:false,
       },
@@ -46,9 +30,9 @@ module.exports = {
           'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ),
       },
-      insuranceAt:{
-        type:Sequelize.DATE,
-      }
+      photoURL:{
+        type:Sequelize.STRING({length:255}),
+      },
     });
   },
 

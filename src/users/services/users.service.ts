@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import {
+  UpdateUserInfomationDto,
+  UpdateUserPasswordDto,
+} from '../dto/update-user.dto';
 import User from '../entities/user.entity';
 const bcrypt = require('bcrypt');
 const salt = 10;
@@ -10,6 +13,7 @@ export class UsersService {
     @Inject('USERS_REPOSITORY')
     private UsersRepository: typeof User,
   ) {}
+
   async create(createUserDto: CreateUserDto) {
     const { email, password, displayName, phone, roleId } = createUserDto;
     const hash = await bcrypt.hash(password, salt);
@@ -27,7 +31,7 @@ export class UsersService {
     return this.UsersRepository.findAll({});
   }
 
-  findOne(email: string) {
+  findUserByEmail(email: string) {
     return this.UsersRepository.findOne({
       where: {
         email: email,
@@ -35,11 +39,62 @@ export class UsersService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateUserInformation(
+    id: number,
+    updateUserInfomationDto: UpdateUserInfomationDto,
+  ) {
+    const { displayName, phone } = updateUserInfomationDto;
+    if (!displayName) {
+      await this.UsersRepository.update(
+        { displayName },
+        {
+          where: {
+            id,
+          },
+        },
+      ).catch((err) => {
+        console.error(err);
+      });
+    }
+    if (!phone) {
+      await this.UsersRepository.update(
+        {
+          phone,
+        },
+        {
+          where: {
+            id,
+          },
+        },
+      ).catch((err) => {
+        console.error(err);
+      });
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async updatePassword(
+    id: number,
+    updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    const { password } = updateUserPasswordDto;
+    const hash = await bcrypt.hash(password, salt);
+    await this.UsersRepository.update(
+      { hash },
+      {
+        where: {
+          id,
+        },
+      },
+    ).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  async remove(id: number) {
+    const user = await this.UsersRepository.destroy({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -1,10 +1,19 @@
 import { Sequelize } from 'sequelize-typescript';
-import Products from 'src/products/entities/product.entity';
-import Product_line from 'src/products/entities/product_lines.entity';
-import product_move from 'src/products/entities/product_move.entity';
+import ProductsModel from 'src/products/entities/product.entity';
+import ProductLineModel from 'src/products/entities/product_lines.entity';
+import ProductMoveModel from 'src/products/entities/product_move.entity';
+import ProductWarehousesModel from 'src/products/entities/product_warehouse.enity';
+import ProductWanrrantyReasonModel from 'src/products/entities/product_warranty_reason.enity';
 import User from 'src/users/entities/user.entity';
 
-const Models = [User, Products, Product_line, product_move];
+const Models = [
+  User,
+  ProductsModel,
+  ProductLineModel,
+  ProductMoveModel,
+  ProductWanrrantyReasonModel,
+  ProductWarehousesModel,
+];
 
 export const databaseProviders = [
   {

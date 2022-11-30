@@ -1,7 +1,7 @@
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table({ tableName: 'products' })
-export default class Products extends Model {
+export default class ProductsModel extends Model {
   @Column({
     autoIncrement: true,
     primaryKey: true,
@@ -9,22 +9,10 @@ export default class Products extends Model {
   id: number;
 
   @Column
-  product_name: string;
+  name: string;
 
   @Column
-  product_line_name: string;
-
-  @Column
-  status: number;
-
-  @Column
-  code: string;
-
-  @Column
-  userId: number;
-
-  @Column
-  authorId: number;
+  product_line_id: number;
 
   @Column
   createdAt: Date;
@@ -33,5 +21,5 @@ export default class Products extends Model {
   updatedAt: Date;
 
   @Column
-  insuranceAt: Date;
+  photoURL: string;
 }

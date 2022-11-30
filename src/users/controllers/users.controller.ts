@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { UpdateUserInfomationDto } from '../dto/update-user.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { UserValidate } from '../validate/users.validate';
 
@@ -33,7 +33,7 @@ export class UsersController {
       currentUserId,
       createUserDto,
     );
-    console.log({ validate });
+
     if (!validate.success) {
       return validate;
     }
@@ -58,13 +58,30 @@ export class UsersController {
 
   @ApiBearerAuth()
   @Get()
-  findAll() {
+  async findAll(@Request() req) {
+    const currentUserId = req.user.id;
+    const validate = await this.userValidate.validateGetAllUsers(currentUserId);
+    if (!validate.success) {
+      return {
+        code: 401,
+        success: false,
+        messeage: 'You cannot have permision for this feature !',
+        result: {},
+      };
+    }
     return this.usersService.findAll();
   }
   @ApiBearerAuth()
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch('')
+  update(
+    @Body() updateUserInfomationDto: UpdateUserInfomationDto,
+    @Request() req,
+  ) {
+    const currentUserId = req.user.id;
+    return this.usersService.updateUserInformation(
+      currentUserId,
+      updateUserInfomationDto,
+    );
   }
   @ApiBearerAuth()
   @Delete(':id')
