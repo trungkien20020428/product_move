@@ -15,5 +15,11 @@ export default class ProductMoveModel extends Model {
   to: string;
 
   @Column
+  isPending: boolean;
+
+  @Column
+  status: number;
+
+  @Column
   createdAt: Date;
 }

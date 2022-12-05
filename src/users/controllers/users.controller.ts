@@ -42,14 +42,14 @@ export class UsersController {
       return {
         code: 401,
         success: false,
-        messeage: 'Can not create users',
+        message: 'Can not create users',
         result: {},
       };
     }
     return {
       code: 201,
       success: true,
-      messeage: 'Create user success',
+      message: 'Create user success',
       result: {
         userCreated,
       },
@@ -65,7 +65,7 @@ export class UsersController {
       return {
         code: 401,
         success: false,
-        messeage: 'You cannot have permision for this feature !',
+        message: 'You cannot have permision for this feature !',
         result: {},
       };
     }

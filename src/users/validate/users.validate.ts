@@ -25,12 +25,12 @@ export class UserValidate {
     if (currentUser.roleId == Role.DIRECTOR && !user) {
       return {
         success: true,
-        messeage: '',
+        message: '',
       };
     }
     return {
       success: false,
-      messeage: 'You can not create new user',
+      message: 'You can not create new user',
     };
   }
 
@@ -44,12 +44,12 @@ export class UserValidate {
     if (user.roleId != Role.DIRECTOR) {
       return {
         success: false,
-        messeage: 'You can not have permision for this!',
+        message: 'You can not have permision for this!',
       };
     }
     return {
       success: true,
-      messeage: '',
+      message: '',
     };
   }
 }

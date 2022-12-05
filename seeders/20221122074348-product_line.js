@@ -6,19 +6,15 @@ module.exports = {
     const product_lines = [
       {
         name: 'TOYOTA',
-        code: 1,
       },
       {
         name: 'HONDA',
-        code: 2,
       },
       {
         name: 'LEXUS',
-        code: 3,
       },
       {
         name: 'ROLLS-ROYCE',
-        code: 4,
       },
     ];
     console.log(product_lines);

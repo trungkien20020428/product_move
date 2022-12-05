@@ -11,9 +11,9 @@ import { CustomersModule } from './customers/customers.module';
 
 @Module({
   imports: [
+    AuthModule,
     UsersModule,
     DatabaseModule,
-    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

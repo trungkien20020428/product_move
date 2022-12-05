@@ -5,6 +5,7 @@ import {
   UpdateUserPasswordDto,
 } from '../dto/update-user.dto';
 import User from '../entities/user.entity';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require('bcrypt');
 const salt = 10;
 @Injectable()

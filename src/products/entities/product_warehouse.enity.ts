@@ -19,8 +19,8 @@ export default class ProductWarehousesModel extends Model {
   @Column
   order_id: number;
 
-  @Column
-  isCofirm: boolean;
+  // @Column
+  // isCofirm: boolean;
 
   @Column
   createdAt: Date;
@@ -28,8 +28,8 @@ export default class ProductWarehousesModel extends Model {
   @Column
   updatedAt: Date;
 
-  @Column
-  warrantyDate: Date;
+  // @Column
+  // warrantyDate: Date;
 
   @Column
   status: number;

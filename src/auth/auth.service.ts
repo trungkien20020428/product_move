@@ -24,7 +24,7 @@ export class AuthService {
     if (!user) {
       return {
         code: 403,
-        messeage: 'Can not login , please try input email and password again',
+        message: 'Can not login , please try input email and password again',
         success: false,
         result: {},
       };
@@ -34,7 +34,7 @@ export class AuthService {
     if (!pwMatches) {
       return {
         code: 403,
-        messeage: 'Can not login , please try input email and password again',
+        message: 'Can not login , please try input email and password again',
         success: false,
         result: {},
       };
@@ -45,7 +45,7 @@ export class AuthService {
     delete user.updatedAt;
     return {
       code: 200,
-      messeage: 'login success',
+      message: 'login success',
       success: true,
       result: { accessToken: accessToken, user },
     };
