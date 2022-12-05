@@ -3,16 +3,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const product_move = [
+    const orders = [
       {
-        from: 3,
-        to: 2,
+        customer_id: 1,
+        user_id: 4,
         product_id: 1,
-        status: 1,
-        isPending: true,
+      },
+      {
+        customer_id: 2,
+        user_id: 4,
+        product_id: 2,
       },
     ];
-    await queryInterface.bulkInsert('product_move', product_move, {});
+    await queryInterface.bulkInsert('orders', orders, {});
   },
 
   async down(queryInterface, Sequelize) {

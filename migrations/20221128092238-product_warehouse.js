@@ -6,13 +6,13 @@ module.exports = {
     await queryInterface.createTable('product_warehouses', {
       id: {
         allowNull: false,
-        primaryKey:true,
+        primaryKey: true,
         type: Sequelize.STRING({ length: 255 }),
       },
       product_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      }, 
+      },
       author_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -28,9 +28,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      warrantyDate: {
-        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
