@@ -1,7 +1,7 @@
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table({ tableName: 'product_warehouses' })
-export default class ProductWanrrantyReasonModel extends Model {
+export default class ProductWarrantyReasonModel extends Model {
   @Column({
     autoIncrement: true,
     primaryKey: true,

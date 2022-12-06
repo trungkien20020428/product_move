@@ -92,7 +92,7 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    const user = await this.UsersRepository.destroy({
+    await this.UsersRepository.destroy({
       where: {
         id,
       },

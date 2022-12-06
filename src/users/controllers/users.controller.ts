@@ -65,14 +65,14 @@ export class UsersController {
       return {
         code: 401,
         success: false,
-        message: 'You cannot have permision for this feature !',
+        message: 'You cannot have permission for this feature !',
         result: {},
       };
     }
     return this.usersService.findAll();
   }
   @ApiBearerAuth()
-  @Patch('')
+  @Patch()
   update(
     @Body() updateUserInfomationDto: UpdateUserInfomationDto,
     @Request() req,
@@ -85,7 +85,26 @@ export class UsersController {
   }
   @ApiBearerAuth()
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string, @Request() req) {
+    const currentUserId = req.user.id;
+    const validate = await this.userValidate.validateDeleteUsers(
+      currentUserId,
+      id,
+    );
+    if (!validate.success) {
+      return {
+        code: 401,
+        success: false,
+        message: validate.message,
+        result: {},
+      };
+    }
+    await this.usersService.remove(+id);
+    return {
+      code: 200,
+      success: true,
+      message: 'delete user success',
+      result: {},
+    };
   }
 }
