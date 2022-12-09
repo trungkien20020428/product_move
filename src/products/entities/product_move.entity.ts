@@ -21,5 +21,11 @@ export default class ProductMoveModel extends Model {
   status: number;
 
   @Column
+  product_id: number;
+
+  @Column
   createdAt: Date;
+
+  @Column
+  updateAt: Date;
 }

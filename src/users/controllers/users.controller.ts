@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserInfomationDto } from '../dto/update-user.dto';
+import { UpdateUserInformationDto } from '../dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { UserValidate } from '../validate/users.validate';
@@ -74,13 +74,13 @@ export class UsersController {
   @ApiBearerAuth()
   @Patch()
   update(
-    @Body() updateUserInfomationDto: UpdateUserInfomationDto,
+    @Body() updateUserInformationDto: UpdateUserInformationDto,
     @Request() req,
   ) {
     const currentUserId = req.user.id;
     return this.usersService.updateUserInformation(
       currentUserId,
-      updateUserInfomationDto,
+      updateUserInformationDto,
     );
   }
   @ApiBearerAuth()

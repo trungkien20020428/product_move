@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import {
-  UpdateUserInfomationDto,
+  UpdateUserInformationDto,
   UpdateUserPasswordDto,
 } from '../dto/update-user.dto';
 import User from '../entities/user.entity';
@@ -42,7 +42,7 @@ export class UsersService {
 
   async updateUserInformation(
     id: number,
-    updateUserInformationDto: UpdateUserInfomationDto,
+    updateUserInformationDto: UpdateUserInformationDto,
   ) {
     const { displayName, phone } = updateUserInformationDto;
     if (!displayName) {

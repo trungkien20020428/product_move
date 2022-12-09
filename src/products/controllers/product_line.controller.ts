@@ -11,7 +11,7 @@ import { ProductLineDto } from '../dto/productLine.dto';
 import { productLineService } from '../services/product_line.service';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { response, resType } from '../../type/global.type';
+import { resType } from '../../type/global.type';
 import { productLineValidate } from '../validate/product_lines.validate';
 
 @UseGuards(JwtGuard)
@@ -27,7 +27,7 @@ export class ProductLineController {
   async addOne(
     @Body() addProductLineDto: ProductLineDto,
     @Request() req,
-  ): Promise<response> {
+  ): resType {
     const { name } = addProductLineDto;
     const currentUserId = req.user.id;
     const resFailed = {

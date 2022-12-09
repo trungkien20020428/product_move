@@ -7,6 +7,10 @@ export class CreateProductDto {
   amount: number;
 
   @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  factoryId: number;
+
+  @IsNotEmpty()
   @ApiProperty({ example: 2 })
   distributionId: number;
   @IsNotEmpty()
