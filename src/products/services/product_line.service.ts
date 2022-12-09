@@ -12,4 +12,10 @@ export class productLineService {
       name: productLine,
     });
   }
+
+  async remove(productLineId: number) {
+    return await this.ProductLinesRepository.destroy({
+      where: { id: productLineId },
+    });
+  }
 }

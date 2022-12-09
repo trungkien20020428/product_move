@@ -1,25 +1,33 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
-import { AddProductLineDto } from '../dto/addProductLine.dto';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Delete,
+  Param,
+} from '@nestjs/common';
+import { ProductLineDto } from '../dto/productLine.dto';
 import { productLineService } from '../services/product_line.service';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { respone } from '../../type/respone.type';
-import { productValidate } from '../validate/products.validate';
+import { response, resType } from '../../type/global.type';
+import { productLineValidate } from '../validate/product_lines.validate';
 
 @UseGuards(JwtGuard)
 @ApiTags('product_line')
 @Controller('product_line')
 export class ProductLineController {
   constructor(
-    private productLineService: productLineService,
-    private productValidate: productValidate,
+    private readonly productLineService: productLineService,
+    private readonly productValidate: productLineValidate,
   ) {}
   @ApiBearerAuth()
   @Post()
   async addOne(
-    @Body() addProductLineDto: AddProductLineDto,
+    @Body() addProductLineDto: ProductLineDto,
     @Request() req,
-  ): Promise<respone> {
+  ): Promise<response> {
     const { name } = addProductLineDto;
     const currentUserId = req.user.id;
     const resFailed = {
@@ -32,7 +40,7 @@ export class ProductLineController {
       name,
       currentUserId,
     );
-    if (validate.isValid) {
+    if (!validate.success) {
       resFailed.message = validate.message;
     } else {
       const addProductLine = await this.productLineService.add(name);
@@ -44,6 +52,35 @@ export class ProductLineController {
           result: {},
         };
       }
+    }
+    return resFailed;
+  }
+  @Delete(':id')
+  @ApiBearerAuth()
+  async removeOne(@Param('id') id: number, @Request() req): resType {
+    const currentId = req.user.id;
+    const resFailed = {
+      code: 401,
+      success: false,
+      message: 'Remove product line failed',
+      result: {},
+    };
+    const validate = await this.productValidate.validateRemoveProductLine(
+      currentId,
+      +id,
+    );
+    if (!validate.success) {
+      resFailed.message = validate.message;
+      return resFailed;
+    }
+    const removeProductLine = await this.productLineService.remove(+id);
+    if (removeProductLine) {
+      return {
+        code: 201,
+        success: true,
+        message: 'remove product line success',
+        result: {},
+      };
     }
     return resFailed;
   }

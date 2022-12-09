@@ -1,4 +1,11 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
+import ProductLineModel from './product_lines.entity';
 
 @Table({ tableName: 'products' })
 export default class ProductsModel extends Model {
@@ -11,9 +18,12 @@ export default class ProductsModel extends Model {
   @Column
   name: string;
 
+  @ForeignKey(() => ProductLineModel)
   @Column
   product_line_id: number;
 
+  @Column
+  isCreate: boolean;
   @Column
   createdAt: Date;
 
@@ -22,4 +32,7 @@ export default class ProductsModel extends Model {
 
   @Column
   photoURL: string;
+
+  @BelongsTo(() => ProductLineModel)
+  productLineModel: ProductLineModel;
 }

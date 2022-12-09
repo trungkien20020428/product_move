@@ -12,9 +12,6 @@ export default class ProductLineModel extends Model {
   name: string;
 
   @Column
-  code: string;
-
-  @Column
   createdAt: Date;
 
   @Column

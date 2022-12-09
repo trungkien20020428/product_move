@@ -8,8 +8,9 @@ import { ProductWarehouseProviders } from './providers/product_warehose.provider
 import { ProductWarrantyProviders } from './providers/product_warranty_reason.providers';
 import { ProductLineController } from './controllers/product_line.controller';
 import { productLineService } from './services/product_line.service';
-import { productValidate } from './validate/products.validate';
+import { productLineValidate } from './validate/product_lines.validate';
 import { UsersModule } from '../users/users.module';
+import { productValidate } from './validate/product.validate';
 
 @Module({
   imports: [UsersModule],
@@ -17,6 +18,7 @@ import { UsersModule } from '../users/users.module';
   providers: [
     ProductsService,
     productLineService,
+    productLineValidate,
     productValidate,
     ...ProductProviders,
     ...ProductLinesProviders,

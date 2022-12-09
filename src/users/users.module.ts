@@ -7,6 +7,6 @@ import { UserValidate } from './validate/users.validate';
 @Module({
   controllers: [UsersController],
   providers: [UsersService, UserValidate, ...UsersProviders],
-  exports: [UsersService, ...UsersProviders],
+  exports: [UsersService, ...UsersProviders, UserValidate],
 })
 export class UsersModule {}

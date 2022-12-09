@@ -42,9 +42,9 @@ export class UsersService {
 
   async updateUserInformation(
     id: number,
-    updateUserInfomationDto: UpdateUserInfomationDto,
+    updateUserInformationDto: UpdateUserInfomationDto,
   ) {
-    const { displayName, phone } = updateUserInfomationDto;
+    const { displayName, phone } = updateUserInformationDto;
     if (!displayName) {
       await this.UsersRepository.update(
         { displayName },

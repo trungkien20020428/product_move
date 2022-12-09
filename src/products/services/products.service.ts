@@ -9,8 +9,20 @@ export class ProductsService {
     @Inject('PRODUCTS_REPOSITORY')
     private ProductsRepository: typeof ProductsModel,
   ) {}
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async create(createProductDto: CreateProductDto) {
+    const { amount, distributionId, productLineId, productName } =
+      createProductDto;
+
+    const products = [];
+    for (let i = 0; i < amount; i++) {
+      const product = await this.ProductsRepository.create({
+        product_line_id: productLineId,
+        name: productName,
+      });
+      products.push(product);
+    }
+
+    return products;
   }
 
   async findAll() {

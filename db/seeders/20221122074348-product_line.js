@@ -17,7 +17,6 @@ module.exports = {
         name: 'ROLLS-ROYCE',
       },
     ];
-    console.log(product_lines);
     await queryInterface.bulkInsert('product_lines', product_lines, {});
   },
 
