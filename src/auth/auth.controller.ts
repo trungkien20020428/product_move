@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { loginDto } from './dto/login.dto';
 
 @Controller('auth')
