@@ -11,15 +11,22 @@ import { productLineService } from './services/product_line.service';
 import { productLineValidate } from './validate/product_lines.validate';
 import { UsersModule } from '../users/users.module';
 import { productValidate } from './validate/product.validate';
+import { productMoveService } from './services/product_move.service';
+import { ProductMoveController } from './controllers/product_move.controller';
 
 @Module({
   imports: [UsersModule],
-  controllers: [ProductsController, ProductLineController],
+  controllers: [
+    ProductsController,
+    ProductLineController,
+    ProductMoveController,
+  ],
   providers: [
     ProductsService,
     productLineService,
     productLineValidate,
     productValidate,
+    productMoveService,
     ...ProductProviders,
     ...ProductLinesProviders,
     ...ProductMoveProviders,

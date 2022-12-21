@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { productWarehouseService } from '../services/product_warehouse.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
@@ -10,10 +10,4 @@ export class ProductWarehouseController {
   constructor(
     private readonly productWarehouseService: productWarehouseService,
   ) {}
-
-  @Post()
-  @ApiBearerAuth()
-  async create() {
-    return 'create';
-  }
 }

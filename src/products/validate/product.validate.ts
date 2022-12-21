@@ -15,4 +15,11 @@ export class productValidate {
   async validateCreateProduct(userId): validate {
     return await this.userValidate.validateDirector(userId);
   }
+
+  async validateActiveProduct(userId): validate {
+    return {
+      message: '',
+      success: true,
+    };
+  }
 }

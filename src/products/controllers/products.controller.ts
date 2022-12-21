@@ -16,6 +16,7 @@ import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { productValidate } from '../validate/product.validate';
 import { resType } from '../../type/global.type';
+import { ActiveProductDto } from '../dto/active_product.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('products')
@@ -59,6 +60,37 @@ export class ProductsController {
     return resFailed;
   }
 
+  @ApiBearerAuth()
+  @Patch()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async active(
+    @Request() req,
+    @Body() activeProductDto: ActiveProductDto,
+  ): resType {
+    const currentUserId = req.user.id;
+    const validate = await this.productValidate.validateActiveProduct(
+      currentUserId,
+    );
+    const resFailed = {
+      code: 401,
+      message: 'active failed',
+      result: [],
+      success: false,
+    };
+    if (!validate.success) {
+      resFailed.message = 'validate error';
+      return resFailed;
+    }
+    const active = await this.productsService.active(activeProductDto);
+    if (active) {
+      return {
+        code: 201,
+        message: 'active success',
+        result: active,
+        success: true,
+      };
+    } else return resFailed;
+  }
   @ApiBearerAuth()
   @Get()
   async findAll() {
