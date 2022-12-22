@@ -27,5 +27,5 @@ export default class ProductMoveModel extends Model {
   createdAt: Date;
 
   @Column
-  updateAt: Date;
+  updatedAt: Date;
 }

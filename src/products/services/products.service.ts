@@ -5,6 +5,7 @@ import ProductsModel from '../entities/product.entity';
 import ProductMoveModel from '../entities/product_move.entity';
 import ProductWarehousesModel from '../entities/product_warehouse.enity';
 import { PRODUCT_STATUS } from '../constance/products_status.constance';
+import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
 
 @Injectable()
 export class ProductsService {
@@ -24,26 +25,25 @@ export class ProductsService {
       createProductDto;
 
     const products = [];
-    const productMoves = [];
     for (let i = 0; i < amount; i++) {
       const product = await this.ProductsRepository.create({
         product_line_id: productLineId,
         name: productName,
         isCreate: false,
       });
-      // const productMove = await this.ProductMoveRepository.create({
-      //   from: factoryId,
-      //   to: distributionId,
-      //   product_id: product.id,
-      //   isPending: true,
-      // });
+      await this.ProductMoveRepository.create({
+        from: factoryId,
+        to: distributionId,
+        product_id: product.id,
+        status: PRODUCT_MOVE.REQUEST,
+      });
       const hashProductId = this.id_base + 'COM' + product.id;
       await this.ProductWarehouseRepository.create({
         product_id: product.id,
         id: hashProductId,
         author_id: factoryId,
         user_id: distributionId,
-        status: PRODUCT_STATUS.NEW_PRODUCED,
+        status: PRODUCT_STATUS.REQUEST_PRODUCED,
       });
       products.push(product);
     }
@@ -70,7 +70,7 @@ export class ProductsService {
 
       await this.ProductWarehouseRepository.update(
         {
-          status: PRODUCT_STATUS.BRING_TO_DISTRIBUTION,
+          status: PRODUCT_STATUS.NEW_PRODUCED,
         },
         {
           where: {
