@@ -13,6 +13,9 @@ import { UsersModule } from '../users/users.module';
 import { productValidate } from './validate/product.validate';
 import { productMoveService } from './services/product_move.service';
 import { ProductMoveController } from './controllers/product_move.controller';
+import { productMoveValidate } from './validate/product_move.validate';
+import { ProductWarehouseController } from './controllers/product_warehouse.controller';
+import { productWarehouseService } from './services/product_warehouse.service';
 
 @Module({
   imports: [UsersModule],
@@ -20,6 +23,7 @@ import { ProductMoveController } from './controllers/product_move.controller';
     ProductsController,
     ProductLineController,
     ProductMoveController,
+    ProductWarehouseController,
   ],
   providers: [
     ProductsService,
@@ -27,6 +31,8 @@ import { ProductMoveController } from './controllers/product_move.controller';
     productLineValidate,
     productValidate,
     productMoveService,
+    productMoveValidate,
+    productWarehouseService,
     ...ProductProviders,
     ...ProductLinesProviders,
     ...ProductMoveProviders,

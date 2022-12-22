@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import User from '../../users/entities/user.entity';
 import { UserValidate } from '../../users/validate/users.validate';
 import ProductsModel from '../entities/product.entity';
 import { validate } from '../../type/global.type';

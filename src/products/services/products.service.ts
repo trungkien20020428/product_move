@@ -87,15 +87,24 @@ export class ProductsService {
     return await this.ProductsRepository.findAll({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number) {
+    const product = await this.ProductsRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    return product;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    await this.ProductsRepository.destroy({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -40,6 +40,7 @@ export class productMoveService {
 
   async receive(uid, moveProductDto) {
     const { ids } = moveProductDto;
+    let productMove = [];
     await this.ProductMovesRepository.update(
       {
         isPending: false,
@@ -50,7 +51,10 @@ export class productMoveService {
           id: ids,
         },
       },
-    );
-    return 'success';
+    ).catch((err) => {
+      console.log(err);
+    });
+
+    return;
   }
 }

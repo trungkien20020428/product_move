@@ -61,7 +61,7 @@ export class ProductsController {
   }
 
   @ApiBearerAuth()
-  @Patch()
+  @Patch('active')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async active(
     @Request() req,

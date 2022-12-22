@@ -12,27 +12,38 @@ import { productMoveService } from '../services/product_move.service';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
 import { resType } from '../../type/global.type';
 import { MoveProductDto } from '../dto/move_product.dto';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { productMoveValidate } from '../validate/product_move.validate';
 
 @ApiTags('product_move')
 @UseGuards(JwtGuard)
 @Controller('product_move')
 @ApiTags('product_move')
 export class ProductMoveController {
-  constructor(private readonly productMoveService: productMoveService) {}
+  constructor(
+    private readonly productMoveService: productMoveService,
+    private readonly productMoveValidate: productMoveValidate,
+  ) {}
 
   @Get('from')
   @ApiBearerAuth()
   async listFrom(@Request() req): resType {
     const uid = req.user.id;
     //validate
-
     const listMove = await this.productMoveService.listFrom(uid);
-
+    if (listMove) {
+      return {
+        code: 200,
+        message: 'get list success',
+        result: listMove,
+        success: true,
+      };
+    }
     return {
-      code: 200,
-      message: 'get list success',
-      result: listMove,
-      success: true,
+      code: 401,
+      message: 'get list failed',
+      result: [],
+      success: false,
     };
   }
 
@@ -40,15 +51,38 @@ export class ProductMoveController {
   @ApiBearerAuth()
   async listTo(@Request() req) {
     const uid = req.user.id;
-    const listRecive = await this.productMoveService.listFrom(uid, false);
+    const listReceive = await this.productMoveService.listFrom(uid, false);
+    if (listReceive) {
+      return {
+        code: 200,
+        message: 'get list success',
+        result: listReceive,
+        success: true,
+      };
+    }
+    return {
+      code: 401,
+      message: 'get list failed',
+      result: [],
+      success: false,
+    };
   }
   @Patch('move')
   @ApiBearerAuth()
   async move(@Body() moveProductDto: MoveProductDto, @Request() req): resType {
     const uid = req.user.id;
-    //validate
-    //somthing code in here
-    const move = await this.productMoveService.move(uid, moveProductDto);
+    const validate = await this.productMoveValidate.validateAvailableMove(
+      moveProductDto,
+    );
+    if (!validate.success) {
+      return {
+        code: 404,
+        message: validate.message,
+        success: false,
+        result: [],
+      };
+    }
+    await this.productMoveService.move(uid, moveProductDto);
 
     return {
       code: 200,
@@ -67,6 +101,17 @@ export class ProductMoveController {
     const uid = req.user.id;
     //validate
     //somthing code in here
+    const validate = await this.productMoveValidate.validateAvailableMove(
+      moveProductDto,
+    );
+    if (!validate.success) {
+      return {
+        code: 401,
+        message: 'invalid',
+        result: [],
+        success: false,
+      };
+    }
     await this.productMoveService.receive(uid, moveProductDto);
     return {
       code: 200,
