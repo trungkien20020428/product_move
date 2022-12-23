@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserValidate } from '../../users/validate/users.validate';
-import ProductsModel from '../entities/product.entity';
+import ProductsModel from '../Models/product.model';
 import { validate } from '../../type/global.type';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import ProductMoveModel from '../entities/product_move.entity';
+import ProductMoveModel from '../Models/product_move.model';
 import { validate } from '../../type/global.type';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
-import ProductsModel from '../entities/product.entity';
-import ProductMoveModel from '../entities/product_move.entity';
-import ProductWarehousesModel from '../entities/product_warehouse.enity';
+import ProductsModel from '../Models/product.model';
+import ProductMoveModel from '../Models/product_move.model';
+import ProductWarehousesModel from '../Models/./product_warehouse.model';
 import { PRODUCT_STATUS } from '../constance/products_status.constance';
 import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
 

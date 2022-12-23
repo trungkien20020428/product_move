@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import ProductMoveModel from '../entities/product_move.entity';
+import ProductMoveModel from '../Models/product_move.model';
 import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
 
 @Injectable()
@@ -10,16 +10,14 @@ export class productMoveService {
   ) {}
 
   async listFrom(id, from = true) {
-    let productMoves;
     if (from) {
-      productMoves = await this.ProductMovesRepository.findAll({
+      return await this.ProductMovesRepository.findAll({
         where: { from: id },
       });
     }
-    productMoves = await this.ProductMovesRepository.findAll({
+    return await this.ProductMovesRepository.findAll({
       where: { to: id },
     });
-    return productMoves;
   }
   async move(uid, moveProductDto) {
     const { ids } = moveProductDto;
@@ -40,7 +38,6 @@ export class productMoveService {
 
   async receive(uid, moveProductDto) {
     const { ids } = moveProductDto;
-    let productMove = [];
     await this.ProductMovesRepository.update(
       {
         isPending: false,

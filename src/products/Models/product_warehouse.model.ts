@@ -5,7 +5,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import ProductsModel from './product.entity';
+import ProductsModel from './product.model';
 
 @Table({ tableName: 'product_warehouses' })
 export default class ProductWarehousesModel extends Model {
