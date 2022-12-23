@@ -1,4 +1,11 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
+import ProductsModel from './product.model';
 
 @Table({ tableName: 'product_warehouses' })
 export default class ProductWarehousesModel extends Model {
@@ -7,6 +14,7 @@ export default class ProductWarehousesModel extends Model {
   })
   id: string;
 
+  @ForeignKey(() => ProductsModel)
   @Column
   product_id: number;
 
@@ -19,18 +27,15 @@ export default class ProductWarehousesModel extends Model {
   @Column
   order_id: number;
 
-  // @Column
-  // isCofirm: boolean;
-
   @Column
   createdAt: Date;
 
   @Column
   updatedAt: Date;
 
-  // @Column
-  // warrantyDate: Date;
-
   @Column
   status: number;
+
+  @BelongsTo(() => ProductsModel)
+  ProductsModel: ProductsModel;
 }

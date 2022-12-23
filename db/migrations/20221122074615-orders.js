@@ -23,11 +23,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      warrantyDate: {
-        type: Sequelize.DATE,
-        allowNull: true,
-        value: Sequelize.NOW + 2222222222,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

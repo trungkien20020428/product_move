@@ -1,7 +1,8 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { productWarehouseService } from '../services/product_warehouse.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
+import { resType } from '../../type/global.type';
 
 @UseGuards(JwtGuard)
 @ApiTags('Product Warehouse')
@@ -11,9 +12,15 @@ export class ProductWarehouseController {
     private readonly productWarehouseService: productWarehouseService,
   ) {}
 
-  @Post()
+  @Get(':id')
   @ApiBearerAuth()
-  async create() {
-    return 'create';
+  async getOne(@Param('id') id: string): resType {
+    const product = await this.productWarehouseService.findOne(id);
+    return {
+      code: 200,
+      message: 'get success',
+      success: true,
+      result: product,
+    };
   }
 }

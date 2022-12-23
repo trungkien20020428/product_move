@@ -24,6 +24,10 @@ module.exports = {
       order_id: {
         type: Sequelize.INTEGER,
       },
+      warrantyDate: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

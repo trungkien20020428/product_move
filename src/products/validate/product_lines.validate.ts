@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import ProductLineModel from '../entities/product_lines.entity';
+import ProductLineModel from '../Models/product_lines.model';
 import User from '../../users/entities/user.entity';
 import { Role } from '../../users/constance/user.constance';
 import { UserValidate } from '../../users/validate/users.validate';
