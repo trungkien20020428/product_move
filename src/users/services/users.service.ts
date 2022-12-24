@@ -44,10 +44,10 @@ export class UsersService {
     id: number,
     updateUserInformationDto: UpdateUserInformationDto,
   ) {
-    const { displayName, phone } = updateUserInformationDto;
-    if (!displayName) {
+    const { displayName, phone, roleId, email,password } = updateUserInformationDto;
+    if (displayName || phone || roleId || email) {
       await this.UsersRepository.update(
-        { displayName },
+        { displayName, phone, roleId, email },
         {
           where: {
             id,
@@ -56,21 +56,9 @@ export class UsersService {
       ).catch((err) => {
         console.error(err);
       });
+      return true;
     }
-    if (!phone) {
-      await this.UsersRepository.update(
-        {
-          phone,
-        },
-        {
-          where: {
-            id,
-          },
-        },
-      ).catch((err) => {
-        console.error(err);
-      });
-    }
+    return false;
   }
 
   async updatePassword(

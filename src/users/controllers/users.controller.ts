@@ -15,6 +15,7 @@ import { UpdateUserInformationDto } from '../dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { UserValidate } from '../validate/users.validate';
+import { resType } from 'src/type/global.type';
 
 @ApiTags('User')
 @UseGuards(JwtGuard)
@@ -72,16 +73,39 @@ export class UsersController {
     return this.usersService.findAll();
   }
   @ApiBearerAuth()
-  @Patch()
-  update(
+  @Patch(':id')
+  async update(
     @Body() updateUserInformationDto: UpdateUserInformationDto,
     @Request() req,
-  ) {
+    @Param('id') id: string,
+  ) :resType{
     const currentUserId = req.user.id;
-    return this.usersService.updateUserInformation(
-      currentUserId,
+    const validate = await this.userValidate.validateDirector(currentUserId);
+    const resFailed = {
+      code: 401,
+      success: false,
+      message: 'can not update user',
+      result: {},
+    }
+    if(!validate.success){
+      resFailed.message = validate.message;
+      return resFailed;
+    }
+    const success = await this.usersService.updateUserInformation(
+      +id,
       updateUserInformationDto,
     );
+    console.log('wtf',success);
+    if(success) {
+      return {
+        code :201,
+        success:true,
+        message:'Update user success',
+        result:{},
+      }
+    }
+    return resFailed;
+
   }
   @ApiBearerAuth()
   @Delete(':id')
