@@ -6,6 +6,7 @@ import {
   Request,
   Delete,
   Param,
+  Get,
 } from '@nestjs/common';
 import { ProductLineDto } from '../dto/productLine.dto';
 import { productLineService } from '../services/product_line.service';
@@ -22,6 +23,28 @@ export class ProductLineController {
     private readonly productLineService: productLineService,
     private readonly productValidate: productLineValidate,
   ) {}
+  @ApiBearerAuth()
+  @Get()
+  async listProductLine(): resType {
+    const resFailed = {
+      code: 401,
+      success: false,
+      message: 'Add product line failed',
+      result: {},
+    };
+
+    const listProductLine = await this.productLineService.getAll();
+    if (listProductLine) {
+      return {
+        code: 201,
+        success: true,
+        message: 'get Success',
+        result: listProductLine,
+      };
+    }
+
+    return resFailed;
+  }
   @ApiBearerAuth()
   @Post()
   async addOne(

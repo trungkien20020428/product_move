@@ -83,6 +83,21 @@ export class ProductsService {
     }
     return productActives;
   }
+
+  async getAllRequestFactory(uid) {
+    const request = await this.ProductWarehouseRepository.findAll({
+      where: {
+        author_id: uid,
+      },
+      include: {
+        model: ProductsModel,
+        where:{
+          isCreate:false,
+        }
+       },
+    });
+    return request;
+  }
   async findAll() {
     return await this.ProductsRepository.findAll({});
   }

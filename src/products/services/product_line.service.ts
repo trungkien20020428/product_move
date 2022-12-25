@@ -13,6 +13,10 @@ export class productLineService {
     });
   }
 
+  async getAll() {
+    return await this.ProductLinesRepository.findAll({});
+  }
+
   async remove(productLineId: number) {
     return await this.ProductLinesRepository.destroy({
       where: { id: productLineId },
