@@ -28,8 +28,8 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
-    return this.UsersRepository.findAll({});
+ async findAll() {
+    return await this.UsersRepository.findAll({});
   }
 
   findUserByEmail(email: string) {

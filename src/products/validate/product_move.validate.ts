@@ -10,13 +10,13 @@ export class productMoveValidate {
   ) {}
 
   async validateAvailableMove(list): validate {
-    const { ids } = list;
+    const { listId } = list;
 
     const pv = await this.ProductMovesRepository.findAll({
-      where: { id: ids },
+      where: { id: listId },
     });
 
-    if (pv.length != ids.length) {
+    if (pv.length != listId.length) {
       return {
         message: 'failed , value is not accept',
         success: false,

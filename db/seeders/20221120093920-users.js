@@ -16,8 +16,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        email: 'kien@vnu.edu.vn',
-        hash: await bcrypt.hash('Example@1234', salt),
+        email: 'factory@product_move.com',
+        hash: await bcrypt.hash('12345678', salt),
         displayName: 'kien',
         roleId: 2,
         phone: '123456789',
@@ -36,7 +36,7 @@ module.exports = {
       {
         email: 'khoa@vnu.edu.vn',
         hash: await bcrypt.hash('Example@1234', salt),
-        displayName: 'khoa',
+        displayName: 'TTBHA',
         roleId: 4,
         phone: '123456789',
         createdAt: new Date(),

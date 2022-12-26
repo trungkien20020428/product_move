@@ -1,4 +1,12 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
+import ProductsModel from './product.model';
+import User from 'src/users/entities/user.entity';
 
 @Table({ tableName: 'product_move' })
 export default class ProductMoveModel extends Model {
@@ -8,8 +16,11 @@ export default class ProductMoveModel extends Model {
   })
   id: number;
 
+
+ 
   @Column
   from: string;
+
 
   @Column
   to: string;
@@ -17,15 +28,20 @@ export default class ProductMoveModel extends Model {
   @Column
   isPending: boolean;
 
-  @Column
-  status: number;
-
+  @ForeignKey(() => ProductsModel)
   @Column
   product_id: number;
+
+  @Column
+  status: number;
 
   @Column
   createdAt: Date;
 
   @Column
   updatedAt: Date;
+
+  @BelongsTo(() => ProductsModel)
+  ProductModels: ProductsModel;
+
 }

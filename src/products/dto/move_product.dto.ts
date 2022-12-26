@@ -6,5 +6,5 @@ export class MoveProductDto {
   @ApiProperty({
     example: [1, 2, 3],
   })
-  ids: number[];
+  listId: number[];
 }

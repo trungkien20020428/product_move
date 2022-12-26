@@ -61,16 +61,22 @@ export class UsersController {
   @Get()
   async findAll(@Request() req) {
     const currentUserId = req.user.id;
-    const validate = await this.userValidate.validateGetAllUsers(currentUserId);
-    if (!validate.success) {
-      return {
-        code: 401,
-        success: false,
-        message: 'You cannot have permission for this feature !',
-        result: {},
-      };
-    }
-    return this.usersService.findAll();
+    // const validate = await this.userValidate.validateGetAllUsers(currentUserId);
+    // if (!validate.success) {
+    //   return {
+    //     code: 401,
+    //     success: false,
+    //     message: 'You cannot have permission for this feature !',
+    //     result: {},
+    //   };
+    // }
+    const listUser = await this.usersService.findAll();
+    return {
+      code: 200,
+      success: true,
+      message: 'get list user success',
+      result: listUser,
+    };
   }
   @ApiBearerAuth()
   @Patch(':id')
@@ -78,7 +84,7 @@ export class UsersController {
     @Body() updateUserInformationDto: UpdateUserInformationDto,
     @Request() req,
     @Param('id') id: string,
-  ) :resType{
+  ): resType {
     const currentUserId = req.user.id;
     const validate = await this.userValidate.validateDirector(currentUserId);
     const resFailed = {
@@ -86,8 +92,8 @@ export class UsersController {
       success: false,
       message: 'can not update user',
       result: {},
-    }
-    if(!validate.success){
+    };
+    if (!validate.success) {
       resFailed.message = validate.message;
       return resFailed;
     }
@@ -95,17 +101,16 @@ export class UsersController {
       +id,
       updateUserInformationDto,
     );
-    console.log('wtf',success);
-    if(success) {
+    console.log('wtf', success);
+    if (success) {
       return {
-        code :201,
-        success:true,
-        message:'Update user success',
-        result:{},
-      }
+        code: 201,
+        success: true,
+        message: 'Update user success',
+        result: {},
+      };
     }
     return resFailed;
-
   }
   @ApiBearerAuth()
   @Delete(':id')

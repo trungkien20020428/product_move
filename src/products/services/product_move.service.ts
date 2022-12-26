@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import ProductMoveModel from '../Models/product_move.model';
 import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
+import ProductsModel from '../Models/product.model';
+import ProductWarehousesModel from '../Models/product_warehouse.model';
+import User from 'src/users/entities/user.entity';
 
 @Injectable()
 export class productMoveService {
@@ -12,15 +15,23 @@ export class productMoveService {
   async listFrom(id, from = true) {
     if (from) {
       return await this.ProductMovesRepository.findAll({
-        where: { from: id },
+        include: [
+          {
+            model: ProductsModel,
+          },
+        ],
+
+        where: { from: id, status: PRODUCT_MOVE.REQUEST },
       });
     }
     return await this.ProductMovesRepository.findAll({
-      where: { to: id },
+      where: { to: id, isPending: true },
     });
   }
   async move(uid, moveProductDto) {
-    const { ids } = moveProductDto;
+    const { listId } = moveProductDto;
+
+    console.log({uid})
     const mv = await this.ProductMovesRepository.update(
       {
         status: PRODUCT_MOVE.ACCEPT,
@@ -28,7 +39,7 @@ export class productMoveService {
       },
       {
         where: {
-          id: ids,
+          id: listId,
           from: uid,
         },
       },
