@@ -19,6 +19,8 @@ export default class ProductWarehousesModel extends Model {
   product_id: number;
 
   @Column
+  warrantyDate: Date;
+  @Column
   author_id: number; //factory
 
   @Column

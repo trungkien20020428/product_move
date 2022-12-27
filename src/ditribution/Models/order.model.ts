@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 
 @Table({ tableName: 'orders' })
-export default class orderModel extends Model {
+export default class OrderModel extends Model {
   @Column({
     autoIncrement: true,
     primaryKey: true,

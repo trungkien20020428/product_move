@@ -1,13 +1,13 @@
-import customerModel from '../Models/customer.model';
-import orderModel from '../Models/order.model';
+import CustomerModel from '../Models/customer.model';
+import OrderModel from '../Models/order.model';
 
 export const DistributionProviders = [
   {
     provide: 'CUSTOMERS_REPOSITORY',
-    useValue: customerModel,
+    useValue: CustomerModel,
   },
   {
     provide: 'ORDERS_REPOSITORY',
-    useValue: orderModel,
+    useValue: OrderModel,
   },
 ];

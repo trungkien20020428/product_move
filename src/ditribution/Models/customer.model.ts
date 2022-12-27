@@ -1,7 +1,7 @@
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table({ tableName: 'customers' })
-export default class customerModel extends Model {
+export default class CustomerModel extends Model {
   @Column({
     autoIncrement: true,
     primaryKey: true,
@@ -13,6 +13,9 @@ export default class customerModel extends Model {
 
   @Column
   address: string;
+
+  @Column
+  phone: string;
 
   @Column
   createdAt: Date;

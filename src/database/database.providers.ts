@@ -6,8 +6,8 @@ import ProductWarehousesModel from 'src/products/Models/product_warehouse.model'
 import ProductWarrantyReasonModel from 'src/products/Models/product_warranty_reason.model';
 import User from 'src/users/entities/user.entity';
 import * as process from 'process';
-import orderModel from 'src/ditribution/Models/order.model';
-import customerModel from 'src/ditribution/Models/customer.model';
+import OrderModel from 'src/ditribution/Models/order.model';
+import CustomerModel from 'src/ditribution/Models/customer.model';
 const Models = [
   User,
   ProductsModel,
@@ -15,8 +15,8 @@ const Models = [
   ProductMoveModel,
   ProductWarrantyReasonModel,
   ProductWarehousesModel,
-  orderModel,
-  customerModel,
+  OrderModel,
+  CustomerModel,
 ];
 
 export const databaseProviders = [
