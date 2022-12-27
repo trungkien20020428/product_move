@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
 import { productWarehouseService } from '../services/product_warehouse.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
@@ -21,6 +21,27 @@ export class ProductWarehouseController {
       message: 'get success',
       success: true,
       result: product,
+    };
+  }
+
+  @Get()
+  @ApiBearerAuth()
+  async getAll(@Request() req): resType {
+    const uid = req.user.id;
+    const result = await this.productWarehouseService.findAll(uid);
+    if (result) {
+      return {
+        message: 'ok',
+        success: true,
+        result: result,
+        code: 200,
+      };
+    }
+    return {
+      message: 'no',
+      success: false,
+      result: [],
+      code: 404,
     };
   }
 }

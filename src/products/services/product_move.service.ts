@@ -4,15 +4,21 @@ import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
 import ProductsModel from '../Models/product.model';
 import ProductWarehousesModel from '../Models/product_warehouse.model';
 import User from 'src/users/entities/user.entity';
+import { PRODUCT_STATUS } from '../constance/products_status.constance';
+import { where } from 'sequelize';
 
 @Injectable()
 export class productMoveService {
   constructor(
     @Inject('PRODUCT_MOVE_REPOSITORY')
     private ProductMovesRepository: typeof ProductMoveModel,
+
+    @Inject('PRODUCT_WAREHOUSE')
+    private ProductWarehouseRepository: typeof ProductWarehousesModel,
   ) {}
 
   async listFrom(id, from = true) {
+    console.log({ id });
     if (from) {
       return await this.ProductMovesRepository.findAll({
         include: [
@@ -25,13 +31,13 @@ export class productMoveService {
       });
     }
     return await this.ProductMovesRepository.findAll({
-      where: { to: id, isPending: true },
+      include: [{ model: ProductsModel }],
+      where: { to: id, isPending: true, status: PRODUCT_MOVE.ACCEPT },
     });
   }
   async move(uid, moveProductDto) {
-    const { listId } = moveProductDto;
+    const { listId, productStatus, listProductId } = moveProductDto;
 
-    console.log({uid})
     const mv = await this.ProductMovesRepository.update(
       {
         status: PRODUCT_MOVE.ACCEPT,
@@ -42,13 +48,25 @@ export class productMoveService {
           id: listId,
           from: uid,
         },
+        returning: true,
       },
     );
+    await this.ProductWarehouseRepository.update(
+      {
+        status: productStatus,
+      },
+      {
+        where: {
+          product_id: listProductId,
+        },
+      },
+    );
+
     return mv;
   }
 
   async receive(uid, moveProductDto) {
-    const { ids } = moveProductDto;
+    const { listId, productStatus, listProductId } = moveProductDto;
     await this.ProductMovesRepository.update(
       {
         isPending: false,
@@ -56,12 +74,23 @@ export class productMoveService {
       {
         where: {
           to: uid,
-          id: ids,
+          id: listId,
         },
       },
     ).catch((err) => {
       console.log(err);
     });
+    await this.ProductWarehouseRepository.update(
+      {
+        status: productStatus,
+        user_id: uid,
+      },
+      {
+        where: {
+          id: listId,
+        },
+      },
+    );
 
     return;
   }

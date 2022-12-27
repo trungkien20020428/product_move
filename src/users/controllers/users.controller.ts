@@ -18,14 +18,13 @@ import { UserValidate } from '../validate/users.validate';
 import { resType } from 'src/type/global.type';
 
 @ApiTags('User')
-@UseGuards(JwtGuard)
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly userValidate: UserValidate,
   ) {}
-
+  @UseGuards(JwtGuard)
   @ApiBearerAuth()
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Request() req) {
@@ -60,7 +59,6 @@ export class UsersController {
   @ApiBearerAuth()
   @Get()
   async findAll(@Request() req) {
-    const currentUserId = req.user.id;
     // const validate = await this.userValidate.validateGetAllUsers(currentUserId);
     // if (!validate.success) {
     //   return {
@@ -78,6 +76,7 @@ export class UsersController {
       result: listUser,
     };
   }
+  @UseGuards(JwtGuard)
   @ApiBearerAuth()
   @Patch(':id')
   async update(
@@ -112,6 +111,7 @@ export class UsersController {
     }
     return resFailed;
   }
+  @UseGuards(JwtGuard)
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id') id: string, @Request() req) {

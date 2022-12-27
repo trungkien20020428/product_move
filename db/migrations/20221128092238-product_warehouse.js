@@ -17,6 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      // nguoi dang nam du san pham
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

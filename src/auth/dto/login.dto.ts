@@ -5,12 +5,12 @@ export class loginDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    example: 'factory@product_move.com',
+    example: 'dat@vnu.edu.vn',
   })
   email: string;
   @IsNotEmpty()
   @ApiProperty({
-    example: '123456789',
+    example: 'Example@1234',
   })
   password: string;
 }

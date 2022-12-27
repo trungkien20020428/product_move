@@ -28,8 +28,10 @@ export class UsersService {
     return user;
   }
 
- async findAll() {
-    return await this.UsersRepository.findAll({});
+  async findAll() {
+    return await this.UsersRepository.findAll({
+      attributes: ['email', 'displayName', 'phone', 'roleId', 'id'],
+    });
   }
 
   findUserByEmail(email: string) {
@@ -44,7 +46,8 @@ export class UsersService {
     id: number,
     updateUserInformationDto: UpdateUserInformationDto,
   ) {
-    const { displayName, phone, roleId, email,password } = updateUserInformationDto;
+    const { displayName, phone, roleId, email, password } =
+      updateUserInformationDto;
     if (displayName || phone || roleId || email) {
       await this.UsersRepository.update(
         { displayName, phone, roleId, email },

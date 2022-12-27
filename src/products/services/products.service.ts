@@ -42,7 +42,7 @@ export class ProductsService {
         product_id: product.id,
         id: hashProductId,
         author_id: factoryId,
-        user_id: distributionId,
+        user_id: factoryId,
         status: PRODUCT_STATUS.REQUEST_PRODUCED,
       });
       products.push(product);
@@ -91,15 +91,23 @@ export class ProductsService {
       },
       include: {
         model: ProductsModel,
-        where:{
-          isCreate:false,
-        }
-       },
+        where: {
+          isCreate: false,
+        },
+      },
     });
     return request;
   }
-  async findAll() {
-    return await this.ProductsRepository.findAll({});
+  async findAll(uid) {
+    return await this.ProductWarehouseRepository.findAll({
+      include: {
+        model: ProductsModel,
+      },
+      where: {
+        status: PRODUCT_STATUS.BRING_TO_DISTRIBUTION,
+        user_id: uid,
+      },
+    });
   }
 
   async findOne(id: number) {

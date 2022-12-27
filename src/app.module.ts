@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductsModule } from './products/products.module';
-import { CustomersModule } from './customers/customers.module';
+import { DitributionModule } from './ditribution/ditribution.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { CustomersModule } from './customers/customers.module';
     }),
     JwtModule,
     ProductsModule,
-    CustomersModule,
+    DitributionModule,
   ],
   controllers: [AppController],
   providers: [AuthService],

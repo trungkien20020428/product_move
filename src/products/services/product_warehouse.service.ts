@@ -22,4 +22,14 @@ export class productWarehouseService {
     ]);
     return product;
   }
+
+  async findAll(uid) {
+    const result = await this.productWarehouseModel.findAll({
+      include: [{ model: ProductsModel }],
+      where: {
+        user_id: uid,
+      },
+    });
+    return result;
+  }
 }

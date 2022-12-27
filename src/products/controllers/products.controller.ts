@@ -94,7 +94,24 @@ export class ProductsController {
   @ApiBearerAuth()
   @Get()
   async findAll(@Request() req) {
-    return await this.productsService.findAll();
+    const uid = req.user.id;
+    const resFailed = {
+      code: 401,
+      message: 'get failed',
+      result: [],
+      success: false,
+    };
+
+    const result = await this.productsService.findAll(uid);
+    if (result) {
+      return {
+        code: 201,
+        message: 'active success',
+        result,
+        success: true,
+      };
+    }
+    return resFailed;
   }
 
   @ApiBearerAuth()
