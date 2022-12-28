@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Patch,
+  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { productWarehouseService } from '../services/product_warehouse.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
 import { resType } from '../../type/global.type';
+import { UpdateAllStatusDto } from '../dto/updateAllStatus.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('Product Warehouse')
@@ -71,5 +73,21 @@ export class ProductWarehouseController {
     } else {
       return 'update failed';
     }
+  }
+
+  @Patch('update_status/:status')
+  @ApiBearerAuth()
+  async updateAllStatus(
+    @Param('status') status: number,
+    @Body() updateAllStatusDto: UpdateAllStatusDto,
+    @Request() req,
+  ) {
+    const uid = req.user.id;
+    await this.productWarehouseService.updateStatusFollowProductLine(
+      uid,
+      req.body,
+      +status,
+    );
+    return 'update success';
   }
 }

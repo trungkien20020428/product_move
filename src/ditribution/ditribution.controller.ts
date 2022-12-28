@@ -8,11 +8,12 @@ import {
 } from '@nestjs/common';
 import { DitributionService } from './ditribution.service';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { resType } from '../type/global.type';
 import { SellProductDto } from './dto/sell_product.dto';
 
 @UseGuards(JwtGuard)
+@ApiTags('Distribution')
 @Controller('ditribution')
 export class DitributionController {
   constructor(private readonly ditributionService: DitributionService) {}
