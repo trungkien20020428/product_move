@@ -3,9 +3,6 @@ import ProductMoveModel from '../Models/product_move.model';
 import { PRODUCT_MOVE } from '../constance/productMove_status.constance';
 import ProductsModel from '../Models/product.model';
 import ProductWarehousesModel from '../Models/product_warehouse.model';
-import User from 'src/users/entities/user.entity';
-import { PRODUCT_STATUS } from '../constance/products_status.constance';
-import { where } from 'sequelize';
 
 @Injectable()
 export class productMoveService {
@@ -18,7 +15,6 @@ export class productMoveService {
   ) {}
 
   async listFrom(id, from = true) {
-    console.log({ id });
     if (from) {
       return await this.ProductMovesRepository.findAll({
         include: [
@@ -87,7 +83,7 @@ export class productMoveService {
       },
       {
         where: {
-          id: listId,
+          product_id: listProductId,
         },
       },
     );

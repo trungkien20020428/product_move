@@ -12,6 +12,7 @@ import { ProductMoveController } from './controllers/product_move.controller';
 import { productMoveValidate } from './validate/product_move.validate';
 import { ProductWarehouseController } from './controllers/product_warehouse.controller';
 import { productWarehouseService } from './services/product_warehouse.service';
+import { DitributionModule } from '../ditribution/ditribution.module';
 
 @Module({
   imports: [UsersModule],

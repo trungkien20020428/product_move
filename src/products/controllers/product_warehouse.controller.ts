@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { productWarehouseService } from '../services/product_warehouse.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
@@ -14,14 +22,23 @@ export class ProductWarehouseController {
 
   @Get(':id')
   @ApiBearerAuth()
-  async getOne(@Param('id') id: string): resType {
-    const product = await this.productWarehouseService.findOne(id);
-    return {
-      code: 200,
-      message: 'get success',
-      success: true,
-      result: product,
-    };
+  async getOne(@Param('id') id: string, @Request() req): resType {
+    const uid = req.user.id;
+    const product = await this.productWarehouseService.findOne(id, uid);
+    if (product) {
+      return {
+        code: 200,
+        message: 'get success',
+        success: true,
+        result: product,
+      };
+    } else
+      return {
+        code: 404,
+        message: 'not Found',
+        success: false,
+        result: [],
+      };
   }
 
   @Get()
@@ -43,5 +60,16 @@ export class ProductWarehouseController {
       result: [],
       code: 404,
     };
+  }
+
+  @Patch('update_status/:id/status/:status')
+  @ApiBearerAuth()
+  async updateStatus(@Param('id') id: string, @Param('status') status: number) {
+    const result = await this.productWarehouseService.updateStatus(id, +status);
+    if (result.success) {
+      return 'update status ok';
+    } else {
+      return 'update failed';
+    }
   }
 }
