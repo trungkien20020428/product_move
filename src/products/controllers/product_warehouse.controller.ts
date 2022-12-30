@@ -42,8 +42,14 @@ export class ProductWarehouseController {
         result: [],
       };
   }
+  @ApiBearerAuth()
+  @Get('byStatus/get')
+  async getByStatus() {
+    const result = await this.productWarehouseService.getProductbyStatus();
+    return result;
+  }
 
-  @Get()
+  @Get('all')
   @ApiBearerAuth()
   async getAll(@Request() req): resType {
     const uid = req.user.id;

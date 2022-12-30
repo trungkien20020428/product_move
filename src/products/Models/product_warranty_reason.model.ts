@@ -9,14 +9,17 @@ export default class ProductWarrantyReasonModel extends Model {
   id: number;
 
   @Column
-  orderId: number;
+  product_warehouse_id: string;
 
   @Column
-  problem: string;
+  seriveCenterId: number;
 
   @Column
-  type: number;
+  product_line_id: number;
 
+  @Column
+  status: number;
+  
   @Column
   createAt: Date;
 

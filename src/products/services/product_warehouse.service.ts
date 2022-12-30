@@ -155,4 +155,31 @@ export class productWarehouseService {
     ).map((item) => item.product_id);
     await this.productMoveService.requestArrayMove(uid, productIds, moveId);
   }
+
+  async getProductbyStatus() {
+    const result = await this.productWarehouseModel.findAll({
+      include: [{ model: ProductsModel, where: { isCreate: true } }],
+    });
+    console.log(result)
+    return result;
+  }
+  async getProductByFactory(factoryId) {
+    const result = await this.productWarehouseModel.findAll({
+      include: [{ model: ProductsModel, where: { isCreate: true } }],
+      where: {
+        author_id: factoryId,
+      },
+    });
+    return result;
+  }
+
+  async getProductByRole(userId) {
+    const result = await this.productWarehouseModel.findAll({
+      include: [{ model: ProductsModel, where: { isCreate: true } }],
+      where: {
+        user_id: userId,
+      },
+    });
+    return result;
+  }
 }

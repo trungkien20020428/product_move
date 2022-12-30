@@ -13,6 +13,8 @@ import { productMoveValidate } from './validate/product_move.validate';
 import { ProductWarehouseController } from './controllers/product_warehouse.controller';
 import { productWarehouseService } from './services/product_warehouse.service';
 import { DitributionModule } from '../ditribution/ditribution.module';
+import { productWarrantyService } from './services/product_warranty.service';
+import { ProductWarrantyController } from './controllers/product_warranty.controller';
 
 @Module({
   imports: [UsersModule],
@@ -21,9 +23,11 @@ import { DitributionModule } from '../ditribution/ditribution.module';
     ProductLineController,
     ProductMoveController,
     ProductWarehouseController,
+    ProductWarrantyController,
   ],
   providers: [
     ProductsService,
+    productWarrantyService,
     productLineService,
     productLineValidate,
     productValidate,

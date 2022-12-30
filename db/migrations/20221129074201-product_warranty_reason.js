@@ -4,26 +4,29 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('product_warranty_reasons', {
-      //forgien key from product_warehouse
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.DataTypes.BIGINT,
       },
-      product_warehouse_id: {},
-      reason: {
-        type: Sequelize.STRING({ length: 500 }),
+      product_warehouse_id: {
+        type: Sequelize.STRING({ length: 255 }),
+        allowNull: false,
+      },
+      product_line_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      seriveCenterId: { type: Sequelize.INTEGER, allowNull: false },
+      status: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      type: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
       },
       updatedAt: {
         allowNull: false,
