@@ -10,6 +10,7 @@ module.exports = {
         product_id: 1,
         status: 1,
         isPending: true,
+        product_warehouse_id: '12121',
       },
     ];
     await queryInterface.bulkInsert('product_move', product_move, {});

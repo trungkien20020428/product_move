@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductsModule } from './products/products.module';
 import { DitributionModule } from './ditribution/ditribution.module';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { DitributionModule } from './ditribution/ditribution.module';
     JwtModule,
     ProductsModule,
     DitributionModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [AuthService],

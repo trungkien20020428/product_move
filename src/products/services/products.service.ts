@@ -31,12 +31,6 @@ export class ProductsService {
         name: productName,
         isCreate: false,
       });
-      await this.ProductMoveRepository.create({
-        from: factoryId,
-        to: distributionId,
-        product_id: product.id,
-        status: PRODUCT_MOVE.REQUEST,
-      });
       const hashProductId = this.id_base + 'COM' + product.id;
       await this.ProductWarehouseRepository.create({
         product_id: product.id,
@@ -44,6 +38,13 @@ export class ProductsService {
         author_id: factoryId,
         user_id: factoryId,
         status: PRODUCT_STATUS.REQUEST_PRODUCED,
+      });
+      await this.ProductMoveRepository.create({
+        from: factoryId,
+        to: distributionId,
+        product_id: product.id,
+        status: PRODUCT_MOVE.REQUEST,
+        product_warehouse_id: hashProductId,
       });
       products.push(product);
     }

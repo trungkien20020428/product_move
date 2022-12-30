@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   Request,
   UseGuards,
@@ -14,6 +15,7 @@ import { resType } from '../../type/global.type';
 import { MoveProductDto } from '../dto/move_product.dto';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { productMoveValidate } from '../validate/product_move.validate';
+import { RequestMoveDto } from '../dto/request_move.dto';
 
 @ApiTags('product_move')
 @UseGuards(JwtGuard)
@@ -119,5 +121,23 @@ export class ProductMoveController {
       result: [],
       success: true,
     };
+  }
+  @Patch('request')
+  @ApiBearerAuth()
+  async requestMove(@Request() req, @Body() requestMoveDto: RequestMoveDto) {
+    const currentUserId = req.user.id;
+    const { productId, moveId } = requestMoveDto;
+    await this.productMoveService.requestMove(currentUserId, productId, moveId);
+  }
+
+  @ApiBearerAuth()
+  @Get('single_from/:productCode')
+  async from(@Request() req, @Param('productCode') productCode: string) {
+    const currentUserId = req.user.id;
+    const result = await this.productMoveService.getFromId(
+      currentUserId,
+      productCode,
+    );
+    return result;
   }
 }

@@ -106,7 +106,7 @@ export class ProductsController {
     if (result) {
       return {
         code: 201,
-        message: 'active success',
+        message: 'list file',
         result,
         success: true,
       };

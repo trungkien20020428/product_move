@@ -4,6 +4,9 @@ import ProductsModel from '../Models/product.model';
 import OrderModel from '../../ditribution/Models/order.model';
 import CustomerModel from '../../ditribution/Models/customer.model';
 import { Op } from 'sequelize';
+import { PRODUCT_STATUS } from '../constance/products_status.constance';
+import ProductMoveModel from '../Models/product_move.model';
+import { productMoveService } from './product_move.service';
 
 @Injectable()
 export class productWarehouseService {
@@ -19,6 +22,8 @@ export class productWarehouseService {
 
     @Inject('PRODUCTS_REPOSITORY')
     private productRepository: typeof ProductsModel,
+
+    private readonly productMoveService: productMoveService,
   ) {}
 
   async findOne(id, uid) {
@@ -69,7 +74,9 @@ export class productWarehouseService {
       include: [{ model: ProductsModel }],
       where: {
         user_id: uid,
-        order_id: null,
+        status: {
+          [Op.ne]: PRODUCT_STATUS.SOLD,
+        },
       },
     });
     return result;
@@ -94,9 +101,23 @@ export class productWarehouseService {
     return result;
   }
 
+  async updateStatuss(ids, status) {
+    const update = await this.productWarehouseModel.update(
+      {
+        status: status,
+      },
+      {
+        where: {
+          id: ids,
+        },
+      },
+    );
+  }
+
+  //update when recovery
   async updateStatusFollowProductLine(uid, updateAllStatusDto, status) {
-    const { product_line_id } = updateAllStatusDto;
-    const productIds = await (
+    const { product_line_id, moveId } = updateAllStatusDto;
+    const productId = await (
       await this.productRepository.findAll({
         attributes: ['id'],
         where: {
@@ -105,14 +126,13 @@ export class productWarehouseService {
         raw: true,
       })
     ).map((item) => item.id);
-    console.log(productIds);
     await this.productWarehouseModel.update(
       {
         status: status,
       },
       {
         where: {
-          product_id: productIds,
+          product_id: productId,
           user_id: uid,
           order_id: {
             [Op.ne]: null,
@@ -120,5 +140,19 @@ export class productWarehouseService {
         },
       },
     );
+    const productIds = await (
+      await this.productWarehouseModel.findAll({
+        attributes: ['product_id'],
+        where: {
+          product_id: productId,
+          user_id: uid,
+          order_id: {
+            [Op.ne]: null,
+          },
+        },
+        raw: true,
+      })
+    ).map((item) => item.product_id);
+    await this.productMoveService.requestArrayMove(uid, productIds, moveId);
   }
 }

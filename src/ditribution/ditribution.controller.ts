@@ -28,7 +28,7 @@ export class DitributionController {
     const resFailed = {
       code: 401,
       success: false,
-      message: 'Add product line failed',
+      message: 'sell failed',
       result: {},
     };
 

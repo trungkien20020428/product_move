@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      product_warehouse_id: {
+        type: Sequelize.STRING({ length: 255 }),
+        allowNull: false,
+      },
       isPending: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

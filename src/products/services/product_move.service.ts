@@ -16,23 +16,30 @@ export class productMoveService {
 
   async listFrom(id, from = true) {
     if (from) {
-      return await this.ProductMovesRepository.findAll({
+      const result = await this.ProductMovesRepository.findAll({
+        where: { from: id, status: PRODUCT_MOVE.REQUEST },
         include: [
           {
             model: ProductsModel,
+            where: {
+              isCreate: true,
+            },
+          },
+          {
+            model: ProductWarehousesModel,
           },
         ],
-
-        where: { from: id, status: PRODUCT_MOVE.REQUEST },
       });
+      return result;
     }
-    return await this.ProductMovesRepository.findAll({
-      include: [{ model: ProductsModel }],
+    const result = await this.ProductMovesRepository.findAll({
+      include: [{ model: ProductsModel }, { model: ProductWarehousesModel }],
       where: { to: id, isPending: true, status: PRODUCT_MOVE.ACCEPT },
     });
+    return result;
   }
   async move(uid, moveProductDto) {
-    const { listId, productStatus, listProductId } = moveProductDto;
+    const { listId, listProductId } = moveProductDto;
 
     const mv = await this.ProductMovesRepository.update(
       {
@@ -47,22 +54,22 @@ export class productMoveService {
         returning: true,
       },
     );
-    await this.ProductWarehouseRepository.update(
-      {
-        status: productStatus,
-      },
-      {
-        where: {
-          product_id: listProductId,
-        },
-      },
-    );
+    // await this.ProductWarehouseRepository.update(
+    //   {
+    //     status: productStatus,
+    //   },
+    //   {
+    //     where: {
+    //       product_id: listProductId,
+    //     },
+    //   },
+    // );
 
     return mv;
   }
 
   async receive(uid, moveProductDto) {
-    const { listId, productStatus, listProductId } = moveProductDto;
+    const { listId, listProductId } = moveProductDto;
     await this.ProductMovesRepository.update(
       {
         isPending: false,
@@ -78,7 +85,6 @@ export class productMoveService {
     });
     await this.ProductWarehouseRepository.update(
       {
-        status: productStatus,
         user_id: uid,
       },
       {
@@ -87,7 +93,47 @@ export class productMoveService {
         },
       },
     );
-
     return;
+  }
+
+  async requestArrayMove(currentId, productIds, moveId) {
+    for (let i = 0; i < productIds.length; i++) {
+      const product_warehouse_id = '22000001' + 'COM' + productIds[i];
+      const result = await this.ProductMovesRepository.create({
+        from: currentId,
+        product_id: productIds[i],
+        status: PRODUCT_MOVE.REQUEST,
+        isPending: false,
+        to: moveId,
+        product_warehouse_id,
+      });
+    }
+    return;
+  }
+
+  async requestMove(currentId, productId, moveId) {
+    const product_warehouse_id = '22000001' + 'COM' + productId;
+    const [result] = await Promise.all([
+      this.ProductMovesRepository.create({
+        from: currentId,
+        product_id: productId,
+        status: PRODUCT_MOVE.REQUEST,
+        isPending: false,
+        to: moveId,
+        product_warehouse_id,
+      }),
+    ]);
+    return result;
+  }
+
+  async getFromId(uid, productCode) {
+    const fromId = await this.ProductMovesRepository.findOne({
+      attributes: ['from'],
+      where: {
+        to: uid,
+        product_warehouse_id: productCode,
+      },
+    });
+    return fromId.from;
   }
 }

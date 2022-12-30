@@ -7,6 +7,7 @@ import {
 } from 'sequelize-typescript';
 import ProductsModel from './product.model';
 import User from 'src/users/entities/user.entity';
+import ProductWarehousesModel from './product_warehouse.model';
 
 @Table({ tableName: 'product_move' })
 export default class ProductMoveModel extends Model {
@@ -16,11 +17,12 @@ export default class ProductMoveModel extends Model {
   })
   id: number;
 
-
- 
   @Column
   from: string;
 
+  @ForeignKey(() => ProductWarehousesModel)
+  @Column
+  product_warehouse_id: string;
 
   @Column
   to: string;
@@ -44,4 +46,6 @@ export default class ProductMoveModel extends Model {
   @BelongsTo(() => ProductsModel)
   ProductModels: ProductsModel;
 
+  @BelongsTo(() => ProductWarehousesModel)
+  ProductWarehousesModel: ProductWarehousesModel;
 }

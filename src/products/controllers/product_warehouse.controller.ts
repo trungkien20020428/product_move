@@ -64,6 +64,14 @@ export class ProductWarehouseController {
     };
   }
 
+  @Patch('update_status/listProduct/:status')
+  @ApiBearerAuth()
+  async updateStatuss(@Param('status') status: number, @Request() req) {
+    const { ids } = req.body;
+    console.log(ids);
+    await this.productWarehouseService.updateStatuss(ids, status);
+  }
+
   @Patch('update_status/:id/status/:status')
   @ApiBearerAuth()
   async updateStatus(@Param('id') id: string, @Param('status') status: number) {

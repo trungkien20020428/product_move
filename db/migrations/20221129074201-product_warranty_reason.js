@@ -6,9 +6,12 @@ module.exports = {
     await queryInterface.createTable('product_warranty_reasons', {
       //forgien key from product_warehouse
       id: {
-        type: Sequelize.STRING({ length: 255 }),
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.DataTypes.BIGINT,
       },
+      product_warehouse_id: {},
       reason: {
         type: Sequelize.STRING({ length: 500 }),
         allowNull: false,

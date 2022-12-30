@@ -8,11 +8,10 @@ export class MoveProductDto {
   })
   listId: number[];
 
-  @IsNotEmpty()
   @ApiProperty({
     example: 1,
   })
-  productStatus: number;
+  productStatus?: number;
 
   @IsNotEmpty()
   @ApiProperty({
