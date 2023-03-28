@@ -1,0 +1,78 @@
+/* Content homePage*/
+
+/* Content nhapSP */
+
+/* Content thongtinSP*/
+.dataSP{
+  background-color: #fff;
+}
+.dataSP__nhapidSP .infoSP{
+  margin-top: 2.0rem;
+  margin-left: 2.5vw;
+  width: 15vw;
+  border-radius: 1.0rem;
+  border: 0.1rem solid black;
+}
+.dataSP__nhapidSP .infoSP::placeholder{
+  text-align: center;
+}
+.dataSP > .btn {
+  margin-top: 1.0rem;
+  margin-left: 2.5vw;
+  width: 9vw;
+}
+.dataSP__showdata{
+  margin-top: 3.5rem;
+  margin-left: 2.5vw;
+  width: 60vw;
+  min-height: 20.0rem;
+  background-color: rgb(240, 242, 245);
+}
+.dataSP__showdata__data{
+  font-size: 2.0rem;
+  margin-top: 1.5rem;
+  margin-left: 1.0rem;
+}
+.IDSP{
+  padding-top: 1.5rem;
+}
+.option{
+  display: flex;
+}
+.option{
+  margin-left: 2.5vw;
+}
+.option .btn{
+  background-color: rgb(69, 180, 69);
+  margin-right: 1.5vw;
+  width: 8vw;
+}
+
+/* Content banSP*/
+.infoSP{
+  margin-left: 2.5vw;
+  font-size: 2.0rem;
+  line-height: 1.0rem;
+  width: 60vw;
+  height: 5.0rem;
+  border: none;
+  border-bottom: 0.1rem solid rgba(58, 53, 65, 0.22);
+  padding: 0;
+}
+.banSP > .btn > p{
+  font-size: 3.0rem;
+  line-height: 5.0rem;
+}
+.tagname{
+  margin-top: 3.5rem;
+  margin-left: 4.5vw;
+  font-size: 1.3rem;
+  color: rgba(58, 53, 65, 0.87);
+}
+
+/* Content SPBH*/
+
+/* Footer */
+.footer{
+  height: 5.0rem;
+}

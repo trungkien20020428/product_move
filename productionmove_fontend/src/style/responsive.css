@@ -1,0 +1,11 @@
+@media screen and (max-width: 1650px) {
+
+}
+@media screen and (max-width: 840px) {
+    .user__name{
+       right: 10vw !important;
+    }
+    .user__avatar{
+
+    }
+}

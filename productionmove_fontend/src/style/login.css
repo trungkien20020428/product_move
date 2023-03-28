@@ -1,0 +1,80 @@
+:root{
+    --box-color : rgba(255, 255, 255, 0.708);
+    --form-color : rgb(255, 255, 255);
+}
+body{
+    background-color: rgb(240, 242, 245);
+}
+.box{
+    height: 80vh;
+    width: 80vw;
+    margin: 10vh 10vw;
+    background-color: var(--box-color);
+    display: flex;
+    background-color: rgb(240, 242, 245);
+}
+
+.slogan{
+    display: inline;
+    margin-top: 30vh;
+    margin-left: 10vw;
+}
+.slogan__picture{
+    height: 8.0rem;
+    width: 38.0rem;
+    background-image: url(https://bigcorpsk.com/wp-content/uploads/2022/08/v1-wp-header-blk.png);
+    background-size: contain;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+}
+.slogan__slogan{
+    width: 16.0rem;
+    height: 8.0rem;
+}
+.slogan__slogan__text{
+    font-size: 3.0rem;
+    padding-left: 3.0rem;
+    width: 30.0rem;
+}
+
+.login-form{
+    margin-top: 20vh;
+    margin-left: 15vw ;
+    height: 40vh;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    background-color: var(--form-color);
+}
+.form{
+    padding: 1.5rem;
+}
+.login-form__input::placeholder{
+    padding-left: 1.0rem;
+}
+.login-form__input::content{
+    padding-left: 10.0rem;
+}
+.login-form__input{
+    border-radius: 6px;
+    height: 5.0rem;
+    width: 40.0rem;
+    font-size: 2.0rem;
+}
+.login-form__btn{
+    margin-left: 1.5rem;
+    width: 40.0rem;
+    color: #090909;
+    padding: 1.5rem 1.5rem;
+    font-size: 2.0rem;
+    border-radius: 0.5rem;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+.login-form__btn:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+   }
